@@ -13,7 +13,8 @@ import {
   X,
   CloudRain,
   ExternalLink,
-  GraduationCap
+  GraduationCap,
+  FileCheck
 } from 'lucide-react';
 import { User, UserRole, Announcement } from '../types';
 
@@ -80,13 +81,13 @@ export const Navbar: React.FC<NavbarProps> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-18 flex items-center justify-between gap-4">
         {/* Brand Logo & Title */}
         <div 
-          className="flex items-center gap-3 cursor-pointer select-none group"
+          className="flex items-center gap-3 cursor-pointer select-none group text-left"
           onClick={() => onNavigate('landing')}
         >
-          <div className="w-10 h-10 bg-[#2457C5] rounded-xl flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform text-white">
+          <div className="w-10 h-10 bg-[#2457C5] rounded-xl flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform text-white shrink-0">
             <CloudRain className="w-5 h-5 text-white" />
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col text-left items-start">
             <div className="flex items-center gap-2">
               <span className="text-lg font-bold tracking-tight text-[#102A43]">
                 CAPACITY <span className="text-[#2457C5]">CONNECT</span>
@@ -95,7 +96,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 MoES • IMD
               </span>
             </div>
-            <span className="text-[10px] text-[#829AB1] font-medium tracking-normal -mt-0.5 hidden sm:block">
+            <span className="text-[10px] text-[#829AB1] font-medium tracking-normal -mt-0.5 hidden sm:block text-left">
               Digital Capacity Building & LMS Portal
             </span>
           </div>
@@ -398,33 +399,52 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div className="grid grid-cols-2 gap-2 text-xs font-semibold">
             <button
               onClick={() => { onNavigate('landing'); setMobileMenuOpen(false); }}
-              className="p-2.5 text-left rounded-lg bg-slate-50 hover:bg-slate-100"
+              className="p-2.5 text-left rounded-lg bg-slate-50 hover:bg-slate-100 flex items-center gap-2"
             >
-              Home
+              <Compass className="w-3.5 h-3.5 text-slate-500 shrink-0" />
+              <span>Home</span>
             </button>
             <button
               onClick={() => { onNavigate('courses'); setMobileMenuOpen(false); }}
-              className="p-2.5 text-left rounded-lg bg-slate-50 hover:bg-slate-100"
+              className="p-2.5 text-left rounded-lg bg-slate-50 hover:bg-slate-100 flex items-center gap-2"
             >
-              Course Library
+              <BookOpen className="w-3.5 h-3.5 text-slate-500 shrink-0" />
+              <span>Course Library</span>
             </button>
             <button
               onClick={() => { onNavigate('dashboard'); setMobileMenuOpen(false); }}
-              className="p-2.5 text-left rounded-lg bg-slate-50 hover:bg-slate-100"
+              className="p-2.5 text-left rounded-lg bg-slate-50 hover:bg-slate-100 flex items-center gap-2"
             >
-              Dashboard
+              <Award className="w-3.5 h-3.5 text-slate-500 shrink-0" />
+              <span>Dashboard</span>
+            </button>
+            <button
+              onClick={() => { onNavigate('assessments'); setMobileMenuOpen(false); }}
+              className="p-2.5 text-left rounded-lg bg-slate-50 hover:bg-slate-100 flex items-center gap-2"
+            >
+              <FileCheck className="w-3.5 h-3.5 text-slate-500 shrink-0" />
+              <span>Assessments</span>
             </button>
             <button
               onClick={() => { onNavigate('certificates'); setMobileMenuOpen(false); }}
-              className="p-2.5 text-left rounded-lg bg-slate-50 hover:bg-slate-100"
+              className="p-2.5 text-left rounded-lg bg-slate-50 hover:bg-slate-100 flex items-center gap-2"
             >
-              Certificates
+              <Award className="w-3.5 h-3.5 text-slate-500 shrink-0" />
+              <span>Certificates</span>
+            </button>
+            <button
+              onClick={() => { onNavigate('profile'); setMobileMenuOpen(false); }}
+              className="p-2.5 text-left rounded-lg bg-slate-50 hover:bg-slate-100 flex items-center gap-2"
+            >
+              <UserIcon className="w-3.5 h-3.5 text-slate-500 shrink-0" />
+              <span>Profile</span>
             </button>
             <button
               onClick={() => { onNavigate('announcements'); setMobileMenuOpen(false); }}
-              className="p-2.5 text-left rounded-lg bg-slate-50 hover:bg-slate-100 col-span-2"
+              className="p-2.5 text-left rounded-lg bg-slate-50 hover:bg-slate-100 col-span-2 flex items-center gap-2"
             >
-              Announcements & Alerts
+              <Bell className="w-3.5 h-3.5 text-slate-500 shrink-0" />
+              <span>Announcements &amp; Alerts</span>
             </button>
           </div>
 

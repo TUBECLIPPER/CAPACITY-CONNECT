@@ -12,9 +12,9 @@ export const CircularProgress: React.FC<{
   sublabel?: string;
 }> = ({
   percentage,
-  size = 120,
-  strokeWidth = 10,
-  color = '#2457C5',
+  size = 110,
+  strokeWidth = 9,
+  color = '#0284C7',
   bgColor = '#E2E8F0',
   label,
   sublabel
@@ -24,7 +24,7 @@ export const CircularProgress: React.FC<{
   const strokeDashoffset = circumference - (percentage / 100) * circumference;
 
   return (
-    <div className="flex flex-col items-center justify-center relative" style={{ width: size, height: size }}>
+    <div className="flex flex-col items-center justify-center relative shrink-0" style={{ width: size, height: size }}>
       <svg width={size} height={size} className="transform -rotate-90">
         <circle
           cx={size / 2}
@@ -47,12 +47,12 @@ export const CircularProgress: React.FC<{
           className="transition-all duration-1000 ease-out"
         />
       </svg>
-      <div className="absolute inset-0 flex flex-col items-center justify-center text-center select-none pointer-events-none">
-        <span className="text-xl font-bold text-[#102A43]">
+      <div className="absolute inset-0 flex flex-col items-center justify-center text-center select-none pointer-events-none px-1">
+        <span className="text-lg font-black text-slate-900 leading-tight">
           {label ?? `${percentage}%`}
         </span>
         {sublabel && (
-          <span className="text-[11px] font-medium text-slate-500 uppercase tracking-wider">
+          <span className="text-[10px] font-bold text-slate-500 uppercase tracking-tight line-clamp-1">
             {sublabel}
           </span>
         )}
@@ -61,13 +61,13 @@ export const CircularProgress: React.FC<{
   );
 };
 
-// Radar Competency Chart (SVG based)
+// Radar Competency Chart (Responsive SVG based)
 export const CompetencyRadar: React.FC<{
   data: CompetencyScore[];
   size?: number;
-}> = ({ data, size = 300 }) => {
+}> = ({ data, size = 280 }) => {
   const center = size / 2;
-  const radius = center - 40;
+  const radius = center - 52; // Generous margin so labels never clip
   const totalSides = data.length;
 
   // Generate polygon points for a given ratio (0 to 1)
@@ -90,8 +90,11 @@ export const CompetencyRadar: React.FC<{
     .join(' ');
 
   return (
-    <div className="relative flex items-center justify-center p-2">
-      <svg width={size} height={size} className="overflow-visible">
+    <div className="w-full flex items-center justify-center overflow-hidden p-1">
+      <svg 
+        viewBox={`0 0 ${size} ${size}`} 
+        className="w-full max-w-[290px] h-auto overflow-visible select-none"
+      >
         {/* Background concentric polygons */}
         {levelRatios.map((ratio, rIdx) => {
           const gridPoints = Array.from({ length: totalSides })
@@ -105,9 +108,9 @@ export const CompetencyRadar: React.FC<{
               key={`ring-${rIdx}`}
               points={gridPoints}
               fill={rIdx === levelRatios.length - 1 ? '#F8FAFC' : 'transparent'}
-              stroke="#E2E8F0"
+              stroke="#CBD5E1"
               strokeWidth="1"
-              strokeDasharray={rIdx < levelRatios.length - 1 ? '2 2' : undefined}
+              strokeDasharray={rIdx < levelRatios.length - 1 ? '3 3' : undefined}
             />
           );
         })}
@@ -122,23 +125,23 @@ export const CompetencyRadar: React.FC<{
               y1={center}
               x2={x}
               y2={y}
-              stroke="#CBD5E1"
+              stroke="#E2E8F0"
               strokeWidth="1"
             />
           );
         })}
 
-        {/* Data polygon with gradient fill */}
+        {/* Data polygon with modern atmospheric gradient */}
         <defs>
           <linearGradient id="radarGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#2457C5" stopOpacity="0.4" />
-            <stop offset="100%" stopColor="#12A594" stopOpacity="0.3" />
+            <stop offset="0%" stopColor="#0284C7" stopOpacity="0.45" />
+            <stop offset="100%" stopColor="#0D9488" stopOpacity="0.35" />
           </linearGradient>
         </defs>
         <polygon
           points={points}
           fill="url(#radarGrad)"
-          stroke="#2457C5"
+          stroke="#0284C7"
           strokeWidth="2.5"
           className="transition-all duration-700 ease-out"
         />
@@ -147,32 +150,32 @@ export const CompetencyRadar: React.FC<{
         {data.map((item, i) => {
           const ratio = Math.min(item.score / item.fullMark, 1);
           const { x, y } = getCoordinates(i, ratio);
-          const labelCoord = getCoordinates(i, 1.25);
+          const labelCoord = getCoordinates(i, 1.28);
           return (
             <g key={`point-${i}`}>
               <circle
                 cx={x}
                 cy={y}
-                r="4.5"
-                fill="#12A594"
+                r="4"
+                fill="#0D9488"
                 stroke="#FFFFFF"
                 strokeWidth="2"
               />
               <text
                 x={labelCoord.x}
-                y={labelCoord.y}
+                y={labelCoord.y - 2}
                 textAnchor="middle"
                 dominantBaseline="middle"
-                className="text-[11px] font-medium fill-[#334E68] select-none"
+                className="text-[10px] font-bold fill-slate-700 select-none"
               >
                 {item.subject}
               </text>
               <text
                 x={labelCoord.x}
-                y={labelCoord.y + 12}
+                y={labelCoord.y + 9}
                 textAnchor="middle"
                 dominantBaseline="middle"
-                className="text-[10px] font-bold fill-[#2457C5] select-none"
+                className="text-[9px] font-black fill-cyan-700 select-none"
               >
                 {item.score}%
               </text>
@@ -189,50 +192,50 @@ export const WeeklyActivityChart: React.FC<{
   data: { day: string; hours: number; target: number }[];
 }> = ({ data }) => {
   const maxHours = 6;
-  const height = 150;
+  const height = 130;
 
   return (
     <div className="w-full">
-      <div className="flex items-end justify-between h-36 gap-2 pt-6 pb-2 border-b border-slate-100">
+      <div className="flex items-end justify-between h-36 gap-1.5 sm:gap-2 pt-4 pb-2 border-b border-slate-100">
         {data.map((item) => {
           const barHeight = Math.min((item.hours / maxHours) * height, height);
           const isAboveTarget = item.hours >= item.target;
 
           return (
-            <div key={item.day} className="flex-1 flex flex-col items-center gap-2 group relative">
+            <div key={item.day} className="flex-1 flex flex-col items-center gap-1.5 group relative">
               {/* Tooltip on hover */}
-              <div className="absolute -top-8 bg-[#102A43] text-white text-[10px] py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10 pointer-events-none shadow-md">
+              <div className="absolute -top-8 bg-slate-900 text-white text-[10px] py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10 pointer-events-none shadow-md">
                 {item.hours} hrs ({isAboveTarget ? 'Target met' : 'Below target'})
               </div>
               <div className="w-full max-w-[28px] h-28 bg-slate-100 rounded-t-lg relative flex items-end overflow-hidden">
                 {/* Target line */}
                 <div
-                  className="absolute w-full border-t border-dashed border-amber-400 z-10"
+                  className="absolute w-full border-t border-dashed border-amber-500 z-10"
                   style={{ bottom: `${(item.target / maxHours) * 100}%` }}
                 />
                 {/* Filled bar */}
                 <div
                   className={`w-full transition-all duration-700 rounded-t-md ${
                     isAboveTarget
-                      ? 'bg-gradient-to-t from-[#2457C5] to-[#12A594]'
+                      ? 'bg-gradient-to-t from-cyan-600 to-teal-500'
                       : 'bg-gradient-to-t from-slate-400 to-slate-300'
                   }`}
                   style={{ height: `${barHeight}px` }}
                 />
               </div>
-              <span className="text-xs font-medium text-slate-500">{item.day}</span>
+              <span className="text-[11px] font-bold text-slate-500">{item.day}</span>
             </div>
           );
         })}
       </div>
-      <div className="flex items-center justify-between text-xs text-slate-500 pt-2 px-1">
-        <div className="flex items-center gap-2">
-          <span className="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-[#2457C5] to-[#12A594]" />
-          <span>Active Learning Hours</span>
+      <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-500 pt-2.5 px-0.5">
+        <div className="flex items-center gap-1.5">
+          <span className="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-cyan-600 to-teal-500" />
+          <span className="font-medium text-slate-600">Active Learning Hours</span>
         </div>
-        <div className="flex items-center gap-2">
-          <span className="w-3 border-t-2 border-dashed border-amber-400 inline-block" />
-          <span>Daily Goal (2.0 hrs)</span>
+        <div className="flex items-center gap-1.5">
+          <span className="w-3 border-t-2 border-dashed border-amber-500 inline-block" />
+          <span className="font-medium text-slate-600">Daily Goal (2.0 hrs)</span>
         </div>
       </div>
     </div>
@@ -245,19 +248,19 @@ export const AnalyticsBarChart: React.FC<{
   values: number[];
   metricLabel: string;
   color?: string;
-}> = ({ labels, values, metricLabel, color = '#2457C5' }) => {
+}> = ({ labels, values, metricLabel, color = '#0284C7' }) => {
   const maxValue = Math.max(...values, 10);
 
   return (
     <div className="w-full">
-      <div className="flex items-end justify-between h-40 gap-3 pt-6 pb-2 border-b border-slate-100">
+      <div className="flex items-end justify-between h-40 gap-2 sm:gap-3 pt-6 pb-2 border-b border-slate-100">
         {labels.map((label, idx) => {
           const val = values[idx];
           const barHeight = (val / maxValue) * 120;
 
           return (
             <div key={label} className="flex-1 flex flex-col items-center gap-2 group relative">
-              <div className="absolute -top-7 bg-[#102A43] text-white text-[11px] font-semibold py-0.5 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10 pointer-events-none shadow-md">
+              <div className="absolute -top-7 bg-slate-900 text-white text-[11px] font-semibold py-0.5 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10 pointer-events-none shadow-md">
                 {val} {metricLabel}
               </div>
               <div className="w-full max-w-[36px] h-32 bg-slate-100 rounded-t-lg relative flex items-end overflow-hidden">
@@ -269,7 +272,7 @@ export const AnalyticsBarChart: React.FC<{
                   }}
                 />
               </div>
-              <span className="text-xs font-medium text-slate-600 truncate max-w-[50px]">{label}</span>
+              <span className="text-[11px] font-medium text-slate-600 truncate max-w-[45px] sm:max-w-[50px]">{label}</span>
             </div>
           );
         })}
@@ -289,8 +292,8 @@ export const RoleDonutChart: React.FC<{
   const pTrainer = (trainers / total) * 100;
   const pAdmin = (admins / total) * 100;
 
-  const size = 160;
-  const strokeWidth = 22;
+  const size = 150;
+  const strokeWidth = 20;
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
 
@@ -299,15 +302,15 @@ export const RoleDonutChart: React.FC<{
   const offsetAdmin = offsetTrainer - (pTrainer / 100) * circumference;
 
   return (
-    <div className="flex items-center gap-6">
-      <div className="relative" style={{ width: size, height: size }}>
+    <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 py-2">
+      <div className="relative shrink-0" style={{ width: size, height: size }}>
         <svg width={size} height={size} className="transform -rotate-90">
           {/* Trainee arc */}
           <circle
             cx={size / 2}
             cy={size / 2}
             r={radius}
-            stroke="#2457C5"
+            stroke="#0284C7"
             strokeWidth={strokeWidth}
             fill="transparent"
             strokeDasharray={circumference}
@@ -318,7 +321,7 @@ export const RoleDonutChart: React.FC<{
             cx={size / 2}
             cy={size / 2}
             r={radius}
-            stroke="#12A594"
+            stroke="#0D9488"
             strokeWidth={strokeWidth}
             fill="transparent"
             strokeDasharray={circumference}
@@ -333,7 +336,7 @@ export const RoleDonutChart: React.FC<{
             cx={size / 2}
             cy={size / 2}
             r={radius}
-            stroke="#D97706"
+            stroke="#EA580C"
             strokeWidth={strokeWidth}
             fill="transparent"
             strokeDasharray={circumference}
@@ -345,23 +348,23 @@ export const RoleDonutChart: React.FC<{
           />
         </svg>
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center pointer-events-none">
-          <span className="text-xl font-bold text-[#102A43]">{total}</span>
-          <span className="text-[10px] text-slate-500 uppercase tracking-wider">Total Users</span>
+          <span className="text-xl font-black text-slate-900">{total}</span>
+          <span className="text-[10px] font-bold text-slate-500 uppercase tracking-tight">Total Users</span>
         </div>
       </div>
 
-      <div className="flex flex-col gap-2.5 text-xs">
-        <div className="flex items-center gap-2">
-          <span className="w-3 h-3 rounded-sm bg-[#2457C5]" />
-          <span className="text-slate-600 font-medium">Trainees ({pTrainee.toFixed(0)}%)</span>
+      <div className="flex flex-wrap sm:flex-col items-center sm:items-start justify-center gap-2 sm:gap-2.5 text-xs">
+        <div className="flex items-center gap-1.5">
+          <span className="w-3 h-3 rounded-sm bg-[#0284C7]" />
+          <span className="text-slate-700 font-semibold">Trainees ({pTrainee.toFixed(0)}%)</span>
         </div>
-        <div className="flex items-center gap-2">
-          <span className="w-3 h-3 rounded-sm bg-[#12A594]" />
-          <span className="text-slate-600 font-medium">Trainers ({pTrainer.toFixed(0)}%)</span>
+        <div className="flex items-center gap-1.5">
+          <span className="w-3 h-3 rounded-sm bg-[#0D9488]" />
+          <span className="text-slate-700 font-semibold">Trainers ({pTrainer.toFixed(0)}%)</span>
         </div>
-        <div className="flex items-center gap-2">
-          <span className="w-3 h-3 rounded-sm bg-[#D97706]" />
-          <span className="text-slate-600 font-medium">Admins ({pAdmin.toFixed(0)}%)</span>
+        <div className="flex items-center gap-1.5">
+          <span className="w-3 h-3 rounded-sm bg-[#EA580C]" />
+          <span className="text-slate-700 font-semibold">Admins ({pAdmin.toFixed(0)}%)</span>
         </div>
       </div>
     </div>

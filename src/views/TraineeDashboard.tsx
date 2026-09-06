@@ -58,23 +58,23 @@ export const TraineeDashboard: React.FC<TraineeDashboardProps> = ({
     <div className="space-y-8 animate-in fade-in duration-200">
       
       {/* 1. WELCOME BANNER */}
-      <div className="bg-gradient-to-r from-[#102A43] to-[#2457C5] rounded-[24px] p-6 sm:p-8 text-white relative overflow-hidden shadow-xl"> 
-        <div className="relative z-10 sm:w-3/5"> 
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-teal-300 text-xs font-semibold border border-white/10 mb-3">
-            <span className="w-2 h-2 rounded-full bg-[#12A594] animate-pulse" />
+      <div className="bg-gradient-to-r from-[#091E3A] via-[#0C335C] to-[#0284C7] rounded-[24px] p-5 sm:p-8 text-white relative overflow-hidden shadow-xl"> 
+        <div className="relative z-10 w-full lg:w-3/5"> 
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-cyan-200 text-xs font-semibold border border-white/15 mb-3">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
             <span>Operational Trainee Cockpit</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-bold mb-2 leading-tight">
-            Build Skills. Strengthen Capacity.<br />Shape Tomorrow.
+          <h2 className="text-xl sm:text-3xl font-extrabold mb-2 leading-tight tracking-tight">
+            Build Skills. Strengthen Capacity.<br className="hidden sm:inline" /> Shape Tomorrow.
           </h2> 
-          <p className="text-white/80 text-xs sm:text-sm mb-6 leading-relaxed">
+          <p className="text-white/85 text-xs sm:text-sm mb-5 leading-relaxed">
             Welcome back, {user.name}. You have {pendingAssessments.length} assessments due this week and {certificates.length} verified certifications under the Ministry of Earth Sciences.
           </p> 
-          <div className="flex flex-wrap gap-3"> 
+          <div className="flex flex-wrap gap-2.5"> 
             {activeCourse ? (
               <button 
                 onClick={() => onSelectCourse(activeCourse)}
-                className="bg-[#12A594] hover:bg-[#0f8c7d] text-white px-6 py-2.5 rounded-xl font-bold text-xs sm:text-sm shadow-lg shadow-[#12A594]/20 transition-all cursor-pointer flex items-center gap-2"
+                className="bg-cyan-500 hover:bg-cyan-400 text-slate-950 px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm shadow-md transition-all cursor-pointer flex items-center gap-2"
               >
                 <PlayCircle className="w-4 h-4" />
                 <span>Resume Learning</span>
@@ -82,14 +82,14 @@ export const TraineeDashboard: React.FC<TraineeDashboardProps> = ({
             ) : (
               <button 
                 onClick={() => onNavigateTab('catalog')}
-                className="bg-[#12A594] hover:bg-[#0f8c7d] text-white px-6 py-2.5 rounded-xl font-bold text-xs sm:text-sm shadow-lg shadow-[#12A594]/20 transition-all cursor-pointer"
+                className="bg-cyan-500 hover:bg-cyan-400 text-slate-950 px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm shadow-md transition-all cursor-pointer"
               >
                 Browse Courses
               </button>
             )}
             <button 
               onClick={() => onNavigateTab('assessments')}
-              className="bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 text-white px-6 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all cursor-pointer"
+              className="bg-white/15 hover:bg-white/25 backdrop-blur-sm border border-white/20 text-white px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all cursor-pointer"
             >
               View Roadmap
             </button> 
@@ -113,44 +113,44 @@ export const TraineeDashboard: React.FC<TraineeDashboardProps> = ({
             <div className="flex-1 bg-white/20 h-1/2 rounded-t-sm" title="Mon: 3.5h"></div> 
             <div className="flex-1 bg-white/40 h-3/4 rounded-t-sm" title="Tue: 4.8h"></div> 
             <div className="flex-1 bg-white/20 h-1/3 rounded-t-sm" title="Wed: 2.1h"></div> 
-            <div className="flex-1 bg-[#12A594] h-full rounded-t-sm shadow-sm" title="Thu: 6.0h"></div> 
+            <div className="flex-1 bg-cyan-400 h-full rounded-t-sm shadow-sm" title="Thu: 6.0h"></div> 
             <div className="flex-1 bg-white/20 h-1/2 rounded-t-sm" title="Fri: 3.2h"></div> 
           </div> 
           <div className="mt-3 flex items-center justify-between text-[10px] text-white/80 border-t border-white/10 pt-2">
             <span>Profile: {user.profileCompletion}%</span>
-            <span className="text-[#12A594] font-bold cursor-pointer hover:underline" onClick={() => onNavigateTab('profile')}>Edit &rarr;</span>
+            <span className="text-cyan-300 font-bold cursor-pointer hover:underline" onClick={() => onNavigateTab('profile')}>Edit &rarr;</span>
           </div>
         </div> 
       </div>
 
       {/* 2. STATS 4-COLUMN GRID FROM DESIGN */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6"> 
-        <div className="bg-white rounded-2xl p-5 border border-[#D9E2EC] shadow-xs hover:border-[#2457C5]/40 transition-all"> 
-          <p className="text-[#829AB1] text-[10px] font-bold uppercase tracking-widest mb-1">Courses Enrolled</p> 
-          <h3 className="text-2xl font-bold text-[#102A43]">{enrolledCourses.length}</h3> 
-          <div className="flex items-center text-[#12A594] text-[10px] font-bold mt-2"> 
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 text-left"> 
+        <div className="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/90 shadow-2xs hover:border-cyan-400 transition-all text-left"> 
+          <p className="text-slate-400 text-[10px] font-bold uppercase tracking-wider mb-1">Courses Enrolled</p> 
+          <h3 className="text-2xl font-black text-slate-900">{enrolledCourses.length}</h3> 
+          <div className="flex items-center text-emerald-600 text-[10px] font-bold mt-1.5"> 
             <span className="mr-1">↑</span> <span>2 New this month</span> 
           </div> 
         </div> 
-        <div className="bg-white rounded-2xl p-5 border border-[#D9E2EC] shadow-xs hover:border-[#2457C5]/40 transition-all"> 
-          <p className="text-[#829AB1] text-[10px] font-bold uppercase tracking-widest mb-1">Hours Learned</p> 
-          <h3 className="text-2xl font-bold text-[#102A43]">48.5</h3> 
-          <div className="flex items-center text-[#2457C5] text-[10px] font-bold mt-2"> 
-            <span className="mr-1">•</span> <span>Top 5% of Dept.</span> 
+        <div className="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/90 shadow-2xs hover:border-cyan-400 transition-all text-left"> 
+          <p className="text-slate-400 text-[10px] font-bold uppercase tracking-wider mb-1">Hours Learned</p> 
+          <h3 className="text-2xl font-black text-slate-900">48.5</h3> 
+          <div className="flex items-center text-cyan-700 text-[10px] font-bold mt-1.5"> 
+            <span className="mr-1">•</span> <span>Top 5% in RMC</span> 
           </div> 
         </div> 
-        <div className="bg-white rounded-2xl p-5 border border-[#D9E2EC] shadow-xs hover:border-[#2457C5]/40 transition-all"> 
-          <p className="text-[#829AB1] text-[10px] font-bold uppercase tracking-widest mb-1">Avg. Score</p> 
-          <h3 className="text-2xl font-bold text-[#102A43]">{avgProgress}%</h3> 
-          <div className="flex items-center text-[#F59E0B] text-[10px] font-bold mt-2"> 
-            <span className="mr-1">⭐</span> <span>Expert Level</span> 
+        <div className="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/90 shadow-2xs hover:border-cyan-400 transition-all text-left"> 
+          <p className="text-slate-400 text-[10px] font-bold uppercase tracking-wider mb-1">Avg. Score</p> 
+          <h3 className="text-2xl font-black text-slate-900">{avgProgress}%</h3> 
+          <div className="flex items-center text-amber-600 text-[10px] font-bold mt-1.5"> 
+            <span className="mr-1">⭐</span> <span>Expert Tier</span> 
           </div> 
         </div> 
-        <div className="bg-white rounded-2xl p-5 border border-[#D9E2EC] shadow-xs hover:border-[#2457C5]/40 transition-all"> 
-          <p className="text-[#829AB1] text-[10px] font-bold uppercase tracking-widest mb-1">Certificates</p> 
-          <h3 className="text-2xl font-bold text-[#102A43]">{certificates.length > 9 ? certificates.length : `0${certificates.length}`}</h3> 
-          <div className="flex items-center text-[#12A594] text-[10px] font-bold mt-2"> 
-            <span className="mr-1">✓</span> <span>Verified ID</span> 
+        <div className="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/90 shadow-2xs hover:border-cyan-400 transition-all text-left"> 
+          <p className="text-slate-400 text-[10px] font-bold uppercase tracking-wider mb-1">Certificates</p> 
+          <h3 className="text-2xl font-black text-slate-900">{certificates.length > 9 ? certificates.length : `0${certificates.length}`}</h3> 
+          <div className="flex items-center text-emerald-600 text-[10px] font-bold mt-1.5"> 
+            <span className="mr-1">✓</span> <span>Verified QR</span> 
           </div> 
         </div> 
       </div> 
@@ -279,8 +279,8 @@ export const TraineeDashboard: React.FC<TraineeDashboardProps> = ({
 
           <CompetencyRadar data={COMPETENCY_SCORES} size={280} />
 
-          <div className="w-full pt-4 border-t border-[#D9E2EC]/60 flex items-center justify-between text-[11px] text-[#486581]">
-            <span>Strongest: <strong className="text-[#2457C5]">Numerical Models (94%)</strong></span>
+          <div className="w-full pt-3 border-t border-slate-200/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1 text-[11px] text-slate-600">
+            <span>Strongest: <strong className="text-cyan-700">Numerical Models (94%)</strong></span>
             <span>Improvement Goal: <strong className="text-amber-700">Hydrometeorology (70%)</strong></span>
           </div>
         </div>

@@ -96,25 +96,25 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
     <div className="space-y-8 animate-in fade-in duration-200">
       
       {/* 1. ADMIN COMMAND HEADER */}
-      <div className="rounded-2xl bg-gradient-to-r from-[#102A43] via-[#1A3D62] to-[#102A43] text-white p-6 sm:p-8 shadow-md">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-          <div className="space-y-2">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-amber-400 text-[#102A43]">
+      <div className="rounded-2xl bg-gradient-to-r from-[#091E3A] via-[#0C335C] to-[#0284C7] text-white p-5 sm:p-8 shadow-md">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+          <div className="space-y-1.5">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-cyan-400 text-slate-950">
               <ShieldCheck className="w-3.5 h-3.5" /> Central MoES Administration
             </span>
-            <h1 className="text-2xl sm:text-3xl font-black">{adminUser.name}</h1>
-            <p className="text-xs sm:text-sm text-slate-300">
+            <h1 className="text-xl sm:text-3xl font-black">{adminUser.name}</h1>
+            <p className="text-xs sm:text-sm text-cyan-100">
               {adminUser.designation} • {adminUser.department}
             </p>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-slate-300">
               Prithvi Bhavan HQ, New Delhi • Mission Karmayogi Capacity Cell
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-3">
+          <div className="flex flex-wrap items-center gap-2.5">
             <button
               onClick={() => setIsComposerOpen(true)}
-              className="px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-[#102A43] text-xs font-bold shadow-sm transition-all flex items-center gap-2 cursor-pointer"
+              className="px-4 py-2.5 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-slate-950 text-xs font-bold shadow-xs transition-all flex items-center gap-2 cursor-pointer"
             >
               <Megaphone className="w-4 h-4" />
               <span>Broadcast Announcement</span>
@@ -124,46 +124,46 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
       </div>
 
       {/* 2. PLATFORM METRIC TILES */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 text-left">
+        <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs hover:border-cyan-400 transition-all text-left">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-bold text-slate-500 uppercase">Registered Users</span>
-            <Users className="w-4 h-4 text-[#2457C5]" />
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Registered Users</span>
+            <Users className="w-4 h-4 text-cyan-600" />
           </div>
-          <div className="text-2xl font-black text-[#102A43]">1,595 Total</div>
-          <span className="text-[11px] text-teal-700 font-medium mt-1 inline-block">1,500 Trainees • 80 Trainers • 15 Admins</span>
+          <div className="text-xl sm:text-2xl font-black text-slate-900">1,595 Total</div>
+          <span className="text-[10px] text-teal-700 font-medium mt-1 inline-block truncate w-full">1,500 Trainees • 80 Trainers</span>
         </div>
 
-        <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs">
+        <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs hover:border-cyan-400 transition-all text-left">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-bold text-slate-500 uppercase">Pending Approvals</span>
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Pending Approvals</span>
             <AlertCircle className="w-4 h-4 text-amber-500" />
           </div>
-          <div className="text-2xl font-black text-[#102A43]">{pendingCount} Applications</div>
-          <span className="text-[11px] text-amber-700 font-bold mt-1 inline-block">Awaiting Gov identity verification</span>
+          <div className="text-xl sm:text-2xl font-black text-slate-900">{pendingCount} Applications</div>
+          <span className="text-[10px] text-amber-700 font-bold mt-1 inline-block truncate w-full">Identity verification</span>
         </div>
 
-        <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs">
+        <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs hover:border-cyan-400 transition-all text-left">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-bold text-slate-500 uppercase">Avg Course Completion</span>
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Completion Rate</span>
             <TrendingUp className="w-4 h-4 text-emerald-600" />
           </div>
-          <div className="text-2xl font-black text-[#102A43]">92.4%</div>
-          <span className="text-[11px] text-emerald-600 font-medium mt-1 inline-block">Exceeds annual MoES target</span>
+          <div className="text-xl sm:text-2xl font-black text-slate-900">92.4%</div>
+          <span className="text-[10px] text-emerald-600 font-medium mt-1 inline-block truncate w-full">Exceeds annual MoES target</span>
         </div>
 
-        <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs">
+        <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs hover:border-cyan-400 transition-all text-left">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-bold text-slate-500 uppercase">WMO Certifications Issued</span>
-            <Award className="w-4 h-4 text-amber-600" />
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">WMO Certifications</span>
+            <Award className="w-4 h-4 text-amber-500" />
           </div>
-          <div className="text-2xl font-black text-[#102A43]">1,180 Badges</div>
-          <span className="text-[11px] text-slate-500 font-medium mt-1 inline-block">Digitally verified credentials</span>
+          <div className="text-xl sm:text-2xl font-black text-slate-900">1,180 Badges</div>
+          <span className="text-[10px] text-slate-500 font-medium mt-1 inline-block truncate w-full">Digitally verified credentials</span>
         </div>
       </div>
 
       {/* 3. USER APPROVAL QUEUE TABLE */}
-      <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs">
+      <div className="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200 shadow-xs">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-3">
           <div>
             <h3 className="text-base font-bold text-[#102A43] flex items-center gap-2">
@@ -177,15 +177,15 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
             <p className="text-xs text-slate-500">Review scientific credentials, employee IDs, and assigned station roles.</p>
           </div>
 
-          <div className="flex items-center gap-2">
-            <div className="relative">
+          <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+            <div className="relative flex-1 sm:flex-initial">
               <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-2.5 pointer-events-none" />
               <input
                 type="text"
                 placeholder="Search applicant..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-8 pr-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg w-44 focus:outline-none"
+                className="w-full pl-8 pr-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg sm:w-44 focus:outline-none"
               />
             </div>
             <select

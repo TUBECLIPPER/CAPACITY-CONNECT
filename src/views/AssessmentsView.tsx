@@ -175,11 +175,11 @@ export const AssessmentsView: React.FC<AssessmentsViewProps> = ({
               </div>
             </div>
 
-            <div className="pt-4 flex items-center justify-between">
+            <div className="pt-4 flex flex-wrap sm:flex-nowrap items-center justify-between gap-2 border-t border-slate-100">
               <span className="text-[11px] text-slate-400">CTI Verified Exam</span>
               <button
                 onClick={() => handleStartQuiz(item)}
-                className="px-4 py-2 rounded-xl bg-[#2457C5] hover:bg-blue-700 text-white font-bold text-xs shadow-xs transition-colors flex items-center gap-1.5 cursor-pointer"
+                className="px-3.5 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-700 text-white font-bold text-xs shadow-xs transition-colors flex items-center gap-1.5 cursor-pointer shrink-0"
               >
                 <span>{item.status === 'Graded' ? 'Retake Diagnostic' : 'Start Assessment'}</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -193,13 +193,13 @@ export const AssessmentsView: React.FC<AssessmentsViewProps> = ({
       {/* INTERACTIVE ASSESSMENT SIMULATOR MODAL */}
       {/* ========================================================= */}
       {activeQuiz && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/65 backdrop-blur-xs overflow-y-auto animate-in fade-in duration-150">
-          <div className="bg-white rounded-3xl shadow-2xl border border-slate-200 w-full max-w-2xl overflow-hidden relative my-6">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/70 backdrop-blur-xs overflow-y-auto animate-in fade-in duration-150">
+          <div className="bg-white rounded-2xl sm:rounded-3xl shadow-2xl border border-slate-200 w-full max-w-2xl overflow-hidden relative my-auto">
             
             {/* Modal Header */}
-            <div className="bg-[#102A43] text-white p-6 flex items-center justify-between">
+            <div className="bg-[#091E3A] text-white p-5 sm:p-6 flex items-center justify-between border-b border-cyan-900/60">
               <div>
-                <span className="text-[10px] font-bold text-teal-300 uppercase tracking-wider">
+                <span className="text-[10px] font-bold text-cyan-300 uppercase tracking-wider">
                   CTI Online Examination System
                 </span>
                 <h3 className="text-base font-bold text-white">{activeQuiz.title}</h3>
@@ -215,7 +215,7 @@ export const AssessmentsView: React.FC<AssessmentsViewProps> = ({
 
             {/* Quiz Body */}
             {!isSubmitted ? (
-              <div className="p-6 space-y-6">
+              <div className="p-5 sm:p-6 space-y-6">
                 <div className="flex items-center justify-between text-xs text-slate-500 border-b border-slate-100 pb-3">
                   <span>Question <strong>{currentQuestionIndex + 1}</strong> of <strong>{quizQuestions.length}</strong></span>
                   <span className="text-amber-700 font-bold flex items-center gap-1">
@@ -238,12 +238,12 @@ export const AssessmentsView: React.FC<AssessmentsViewProps> = ({
                           onClick={() => handleSelectOption(oIdx)}
                           className={`p-3.5 rounded-xl border cursor-pointer transition-all flex items-center gap-3 text-xs ${
                             isSelected
-                              ? 'border-[#2457C5] bg-blue-50/70 font-semibold text-[#102A43] ring-2 ring-[#2457C5]/20'
+                              ? 'border-cyan-600 bg-cyan-50/70 font-semibold text-slate-900 ring-2 ring-cyan-500/20'
                               : 'border-slate-200 hover:bg-slate-50 text-slate-700'
                           }`}
                         >
                           <div className={`w-5 h-5 rounded-full border flex items-center justify-center text-[10px] font-bold ${
-                            isSelected ? 'border-[#2457C5] bg-[#2457C5] text-white' : 'border-slate-300 text-slate-500'
+                            isSelected ? 'border-cyan-600 bg-cyan-600 text-white' : 'border-slate-300 text-slate-500'
                           }`}>
                             {String.fromCharCode(65 + oIdx)}
                           </div>
@@ -269,7 +269,7 @@ export const AssessmentsView: React.FC<AssessmentsViewProps> = ({
                     <button
                       type="button"
                       onClick={() => setCurrentQuestionIndex(currentQuestionIndex + 1)}
-                      className="px-5 py-2 rounded-xl bg-[#2457C5] text-white text-xs font-bold hover:bg-blue-700 transition-colors"
+                      className="px-5 py-2 rounded-xl bg-cyan-600 text-white text-xs font-bold hover:bg-cyan-700 transition-colors"
                     >
                       Next Question &rarr;
                     </button>

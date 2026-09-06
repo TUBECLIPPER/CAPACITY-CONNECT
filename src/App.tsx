@@ -22,7 +22,7 @@ import { ProfileView } from './views/ProfileView';
 import { NotificationsView } from './views/NotificationsView';
 import { AssessmentsView } from './views/AssessmentsView';
 import { AuthModal } from './views/AuthModal';
-import { CheckCircle2, AlertCircle } from 'lucide-react';
+import { CheckCircle2 } from 'lucide-react';
 
 export default function App() {
   // Authentication & Current User State
@@ -31,7 +31,6 @@ export default function App() {
   const [authModalMode, setAuthModalMode] = useState<'login' | 'signup'>('login');
 
   // Navigation State
-  // Default to 'landing' or dashboard. Let's allow users to toggle smoothly between Landing and Dashboard.
   const [activeTab, setActiveTab] = useState<string>('dashboard');
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
@@ -199,24 +198,120 @@ export default function App() {
     }));
   };
 
+  const handleNavigate = (tab: string) => {
+    if (tab === 'courses') {
+      setActiveTab('catalog');
+    } else {
+      setActiveTab(tab);
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Helper to render the active view content cleanly
+  const renderMainView = (isMobile = false) => {
+    if (activeTab === 'landing') {
+      return (
+        <LandingPage
+          onExploreCourses={() => handleNavigate('catalog')}
+          onStartLearning={() => handleNavigate(currentUser?.role === 'trainer' ? 'trainer-studio' : currentUser?.role === 'admin' ? 'admin-portal' : 'dashboard')}
+          onSelectCourse={(course) => {
+            setSelectedCourse(course);
+            setActiveTab('catalog');
+          }}
+          featuredCourses={(courses || []).slice(0, 3)}
+          announcements={announcements || []}
+          onCreateAccount={() => {
+            setAuthModalMode('signup');
+            setIsAuthModalOpen(true);
+          }}
+        />
+      );
+    }
+
+    return (
+      <div className={isMobile ? "space-y-5" : ""}>
+        {activeTab === 'dashboard' && (
+          <TraineeDashboard
+            user={currentUser || CURRENT_TRAINEE_USER}
+            courses={courses || []}
+            assessments={assessments || []}
+            certificates={certificates || []}
+            announcements={announcements || []}
+            onSelectCourse={(c) => {
+              setSelectedCourse(c);
+              setActiveTab('catalog');
+            }}
+            onNavigateTab={handleNavigate}
+          />
+        )}
+
+        {activeTab === 'catalog' && (
+          <CourseLibrary
+            courses={courses || []}
+            searchQuery={searchQuery}
+            onSearchChange={setSearchQuery}
+            onEnroll={handleEnrollCourse}
+            selectedCourse={selectedCourse}
+            onSelectCourse={setSelectedCourse}
+          />
+        )}
+
+        {activeTab === 'assessments' && (
+          <AssessmentsView
+            assessments={assessments || []}
+            onCompleteAssessment={handleCompleteAssessment}
+          />
+        )}
+
+        {activeTab === 'certificates' && (
+          <CertificatesView certificates={certificates || []} />
+        )}
+
+        {activeTab === 'trainer-studio' && (
+          <TrainerDashboard
+            trainer={currentUser?.role === 'trainer' ? currentUser : CURRENT_TRAINER_USER}
+            assignedCourses={courses || []}
+            onCreateCourse={handleCreateCourse}
+          />
+        )}
+
+        {activeTab === 'admin-portal' && (
+          <AdminDashboard
+            adminUser={currentUser?.role === 'admin' ? currentUser : CURRENT_ADMIN_USER}
+            courses={courses || []}
+            onAddAnnouncement={handleAddAnnouncement}
+          />
+        )}
+
+        {activeTab === 'profile' && (
+          <ProfileView
+            user={currentUser || CURRENT_TRAINEE_USER}
+            onUpdateUser={handleUpdateUser}
+            onShowToast={showToast}
+          />
+        )}
+
+        {activeTab === 'notifications' && (
+          <NotificationsView
+            announcements={announcements || []}
+            onMarkAllRead={handleMarkAllRead}
+            onToggleRead={handleToggleRead}
+          />
+        )}
+      </div>
+    );
+  };
+
   return (
     <div className="min-h-screen bg-[#F0F4F8] text-[#102A43] flex flex-col font-sans selection:bg-[#2457C5]/15 selection:text-[#102A43]">
-      
-      {/* 1. Global Navigation Bar */}
+      {/* Global Navigation Bar */}
       <Navbar
         currentUser={currentUser}
         user={currentUser}
         currentRole={currentUser?.role || 'trainee'}
         currentView={activeTab}
         activeTab={activeTab}
-        onNavigate={(tab) => {
-          if (tab === 'courses') {
-            setActiveTab('catalog');
-          } else {
-            setActiveTab(tab);
-          }
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }}
+        onNavigate={handleNavigate}
         onOpenAuth={(mode) => {
           setAuthModalMode(mode);
           setIsAuthModalOpen(true);
@@ -229,125 +324,33 @@ export default function App() {
         unreadNotificationsCount={(announcements || []).filter(a => !a?.isRead).length}
       />
 
-      {/* 2. Main Content Layout */}
+      {/* Main Container */}
       {activeTab === 'landing' ? (
-        /* Full-Width Landing Page */
-        <main className="flex-1">
-          <LandingPage
-            onExploreCourses={() => {
-              setActiveTab('catalog');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
-            onStartLearning={() => {
-              setActiveTab('dashboard');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
-            onSelectCourse={(course) => {
-              setSelectedCourse(course);
-              setActiveTab('catalog');
-            }}
-            featuredCourses={(courses || []).slice(0, 3)}
-            announcements={announcements || []}
-            onCreateAccount={() => {
-              setAuthModalMode('signup');
-              setIsAuthModalOpen(true);
-            }}
-          />
+        <main className="flex-1 w-full">
+          {renderMainView(false)}
         </main>
       ) : (
-        /* Dashboard App Shell with Sidebar */
-        <div className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 flex gap-6">
-          {/* Collapsible Sidebar Navigation */}
-          <Sidebar
-            user={currentUser}
-            activeTab={activeTab}
-            onSelectTab={(tab) => {
-              setActiveTab(tab);
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
-            isCollapsed={isSidebarCollapsed}
-            onToggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
-            unreadCount={(announcements || []).filter(a => !a?.isRead).length}
-          />
-
-          {/* Primary View Container */}
+        <div className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 flex flex-col lg:flex-row gap-6">
+          <div className="hidden lg:block shrink-0">
+            <Sidebar
+              user={currentUser}
+              activeTab={activeTab}
+              onSelectTab={handleNavigate}
+              isCollapsed={isSidebarCollapsed}
+              onToggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
+              unreadCount={(announcements || []).filter(a => !a?.isRead).length}
+            />
+          </div>
           <main className="flex-1 min-w-0">
-            {activeTab === 'dashboard' && (
-              <TraineeDashboard
-                user={currentUser || CURRENT_TRAINEE_USER}
-                courses={courses || []}
-                assessments={assessments || []}
-                certificates={certificates || []}
-                announcements={announcements || []}
-                onSelectCourse={(c) => {
-                  setSelectedCourse(c);
-                  setActiveTab('catalog');
-                }}
-                onNavigateTab={setActiveTab}
-              />
-            )}
-
-            {activeTab === 'catalog' && (
-              <CourseLibrary
-                courses={courses || []}
-                searchQuery={searchQuery}
-                onSearchChange={setSearchQuery}
-                onEnroll={handleEnrollCourse}
-                selectedCourse={selectedCourse}
-                onSelectCourse={setSelectedCourse}
-              />
-            )}
-
-            {activeTab === 'assessments' && (
-              <AssessmentsView
-                assessments={assessments || []}
-                onCompleteAssessment={handleCompleteAssessment}
-              />
-            )}
-
-            {activeTab === 'certificates' && (
-              <CertificatesView certificates={certificates || []} />
-            )}
-
-            {activeTab === 'trainer-studio' && (
-              <TrainerDashboard
-                trainer={currentUser?.role === 'trainer' ? currentUser : CURRENT_TRAINER_USER}
-                assignedCourses={courses || []}
-                onCreateCourse={handleCreateCourse}
-              />
-            )}
-
-            {activeTab === 'admin-portal' && (
-              <AdminDashboard
-                adminUser={currentUser?.role === 'admin' ? currentUser : CURRENT_ADMIN_USER}
-                courses={courses || []}
-                onAddAnnouncement={handleAddAnnouncement}
-              />
-            )}
-
-            {activeTab === 'profile' && (
-              <ProfileView
-                user={currentUser || CURRENT_TRAINEE_USER}
-                onUpdateUser={handleUpdateUser}
-                onShowToast={showToast}
-              />
-            )}
-
-            {activeTab === 'notifications' && (
-              <NotificationsView
-                announcements={announcements || []}
-                onMarkAllRead={handleMarkAllRead}
-                onToggleRead={handleToggleRead}
-              />
-            )}
+            {renderMainView(false)}
           </main>
         </div>
       )}
 
-      {/* 3. Global Footer */}
-      <Footer onNavigate={setActiveTab} />
+      {/* Responsive Footer */}
+      <Footer onNavigate={handleNavigate} />
 
-      {/* 4. Authentication Modal */}
+      {/* Global Authentication Modal */}
       <AuthModal
         isOpen={isAuthModalOpen}
         initialMode={authModalMode}
@@ -355,16 +358,15 @@ export default function App() {
         onLoginSuccess={handleLoginSuccess}
       />
 
-      {/* 5. Floating Toast Notification */}
+      {/* Floating Toast Notification */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 animate-in slide-in-from-bottom-5 fade-in duration-200">
-          <div className="bg-[#102A43] text-white px-4 py-3 rounded-2xl shadow-xl border border-slate-700 flex items-center gap-3 text-xs">
-            <CheckCircle2 className="w-4 h-4 text-teal-400 shrink-0" />
-            <span className="font-semibold">{toastMessage}</span>
+        <div className="fixed bottom-6 right-6 z-50 animate-in slide-in-from-bottom-5 fade-in duration-200 max-w-sm">
+          <div className="bg-[#091E3A] text-white px-4 py-3 rounded-2xl shadow-xl border border-cyan-800 flex items-center gap-3 text-xs">
+            <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0" />
+            <span className="font-semibold leading-tight">{toastMessage}</span>
           </div>
         </div>
       )}
-
     </div>
   );
 }

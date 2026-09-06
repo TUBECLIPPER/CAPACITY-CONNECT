@@ -110,7 +110,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               </div>
 
               {/* Main Heading */}
-              <h1 className="text-4xl sm:text-5xl xl:text-6xl font-extrabold text-[#102A43] tracking-tight leading-[1.12]">
+              <h1 className="text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-[#102A43] tracking-tight leading-[1.15]">
                 Build Skills. <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2457C5] via-[#12A594] to-[#102A43]">
                   Strengthen Capacity.
@@ -304,9 +304,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
             {/* Card 1 */}
-            <div className="p-6 rounded-2xl bg-[#F8FAFC] border border-slate-200/90 hover:border-blue-300 hover:shadow-md transition-all group">
+            <div className="p-6 rounded-2xl bg-[#F8FAFC] border border-slate-200/90 hover:border-blue-300 hover:shadow-md transition-all group text-left">
               <div className="w-12 h-12 rounded-xl bg-blue-50 text-[#2457C5] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                 <BookOpen className="w-6 h-6" />
               </div>
@@ -318,7 +318,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             </div>
 
             {/* Card 2 */}
-            <div className="p-6 rounded-2xl bg-[#F8FAFC] border border-slate-200/90 hover:border-teal-300 hover:shadow-md transition-all group">
+            <div className="p-6 rounded-2xl bg-[#F8FAFC] border border-slate-200/90 hover:border-teal-300 hover:shadow-md transition-all group text-left">
               <div className="w-12 h-12 rounded-xl bg-teal-50 text-teal-700 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                 <Users className="w-6 h-6" />
               </div>
@@ -330,7 +330,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             </div>
 
             {/* Card 3 */}
-            <div className="p-6 rounded-2xl bg-[#F8FAFC] border border-slate-200/90 hover:border-indigo-300 hover:shadow-md transition-all group">
+            <div className="p-6 rounded-2xl bg-[#F8FAFC] border border-slate-200/90 hover:border-indigo-300 hover:shadow-md transition-all group text-left">
               <div className="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-700 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                 <Award className="w-6 h-6" />
               </div>
@@ -342,7 +342,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             </div>
 
             {/* Card 4 */}
-            <div className="p-6 rounded-2xl bg-[#F8FAFC] border border-slate-200/90 hover:border-amber-300 hover:shadow-md transition-all group">
+            <div className="p-6 rounded-2xl bg-[#F8FAFC] border border-slate-200/90 hover:border-amber-300 hover:shadow-md transition-all group text-left">
               <div className="w-12 h-12 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                 <CheckCircle2 className="w-6 h-6" />
               </div>
@@ -471,8 +471,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({
           </div>
 
           {/* Interactive Step Detail Card */}
-          <div className="p-6 rounded-2xl bg-gradient-to-r from-[#102A43] to-[#1B3A5A] text-white flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="space-y-1">
+          <div className="p-6 rounded-2xl bg-gradient-to-r from-[#102A43] to-[#1B3A5A] text-white flex flex-col md:flex-row items-start md:items-center justify-between gap-6 text-left">
+            <div className="space-y-1 text-left">
               <span className="text-[11px] font-bold text-teal-400 uppercase tracking-wider">
                 Step 0{activeStep + 1} in Action:
               </span>

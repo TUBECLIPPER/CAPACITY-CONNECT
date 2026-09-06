@@ -302,15 +302,15 @@ export const CourseLibrary: React.FC<CourseLibraryProps> = ({
                 </div>
 
                 {/* Trainer & Action CTA */}
-                <div className="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
-                  <div className="flex items-center gap-2">
+                <div className="pt-3 border-t border-slate-100 flex flex-wrap sm:flex-nowrap items-center justify-between gap-2">
+                  <div className="flex items-center gap-2 min-w-0">
                     <img
                       src={course.trainer.avatar}
                       alt={course.trainer.name}
-                      className="w-7 h-7 rounded-full object-cover"
+                      className="w-7 h-7 rounded-full object-cover shrink-0"
                     />
-                    <div className="text-left">
-                      <p className="text-[11px] font-bold text-slate-800 line-clamp-1">{course.trainer.name}</p>
+                    <div className="text-left min-w-0">
+                      <p className="text-[11px] font-bold text-slate-800 truncate">{course.trainer.name}</p>
                       <p className="text-[9px] text-slate-400">{course.enrolledCount} enrolled</p>
                     </div>
                   </div>
@@ -318,14 +318,14 @@ export const CourseLibrary: React.FC<CourseLibraryProps> = ({
                   {course.isEnrolled ? (
                     <button
                       onClick={() => onSelectCourse(course)}
-                      className="px-3.5 py-1.5 rounded-xl bg-blue-50 hover:bg-blue-100 text-[#2457C5] text-xs font-bold transition-colors cursor-pointer"
+                      className="px-3.5 py-1.5 rounded-xl bg-cyan-50 hover:bg-cyan-100 text-cyan-700 text-xs font-bold transition-colors cursor-pointer shrink-0"
                     >
                       {course.progress === 100 ? 'Review' : 'Continue'}
                     </button>
                   ) : (
                     <button
                       onClick={() => onEnroll(course.id)}
-                      className="px-3.5 py-1.5 rounded-xl bg-[#2457C5] hover:bg-blue-700 text-white text-xs font-bold shadow-xs transition-colors cursor-pointer"
+                      className="px-3.5 py-1.5 rounded-xl bg-cyan-600 hover:bg-cyan-700 text-white text-xs font-bold shadow-xs transition-colors cursor-pointer shrink-0"
                     >
                       Enroll Now
                     </button>
@@ -341,11 +341,11 @@ export const CourseLibrary: React.FC<CourseLibraryProps> = ({
       {/* 2. COURSE DETAIL MODAL & INTERACTIVE LESSON VIEWER */}
       {/* ========================================================= */}
       {selectedCourse && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs overflow-y-auto animate-in fade-in duration-150">
-          <div className="bg-white rounded-3xl shadow-2xl border border-slate-200 w-full max-w-4xl max-h-[92vh] flex flex-col overflow-hidden relative my-6">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/70 backdrop-blur-xs overflow-y-auto animate-in fade-in duration-150">
+          <div className="bg-white rounded-2xl sm:rounded-3xl shadow-2xl border border-slate-200 w-full max-w-4xl max-h-[92vh] flex flex-col overflow-hidden relative my-auto">
             
             {/* Modal Header */}
-            <div className="bg-[#102A43] text-white p-6 relative shrink-0">
+            <div className="bg-[#091E3A] text-white p-5 sm:p-6 relative shrink-0 border-b border-cyan-900/60">
               <button
                 onClick={() => {
                   onSelectCourse(null);
@@ -357,16 +357,16 @@ export const CourseLibrary: React.FC<CourseLibraryProps> = ({
               </button>
 
               <div className="flex flex-wrap items-center gap-2 mb-2">
-                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-teal-500 text-[#102A43]">
+                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-cyan-400 text-slate-950">
                   {selectedCourse.category}
                 </span>
                 <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-white/15 text-slate-200 uppercase">
                   {selectedCourse.level} Level
                 </span>
-                <span className="text-xs text-slate-300">• {selectedCourse.duration}</span>
+                <span className="text-xs text-cyan-200">• {selectedCourse.duration}</span>
               </div>
 
-              <h2 className="text-xl sm:text-2xl font-black tracking-tight text-white pr-8">
+              <h2 className="text-lg sm:text-2xl font-black tracking-tight text-white pr-8">
                 {selectedCourse.title}
               </h2>
               <p className="text-xs sm:text-sm text-slate-300 mt-2 max-w-2xl leading-relaxed">
@@ -374,28 +374,28 @@ export const CourseLibrary: React.FC<CourseLibraryProps> = ({
               </p>
 
               {/* Action Ribbon inside header */}
-              <div className="mt-4 flex flex-wrap items-center justify-between gap-4 pt-3 border-t border-slate-700/60">
+              <div className="mt-4 flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-700/60">
                 <div className="flex items-center gap-3">
                   <img
                     src={selectedCourse.trainer.avatar}
                     alt={selectedCourse.trainer.name}
-                    className="w-9 h-9 rounded-full object-cover ring-1 ring-white/30"
+                    className="w-9 h-9 rounded-full object-cover ring-1 ring-white/30 shrink-0"
                   />
                   <div>
                     <p className="text-xs font-bold text-white">{selectedCourse.trainer.name}</p>
-                    <p className="text-[10px] text-slate-300">{selectedCourse.trainer.designation}</p>
+                    <p className="text-[10px] text-cyan-200">{selectedCourse.trainer.designation}</p>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-3">
                   {selectedCourse.isEnrolled ? (
                     <div className="flex items-center gap-2">
-                      <span className="text-xs font-bold text-teal-300">Enrolled: {selectedCourse.progress}% Completed</span>
+                      <span className="text-xs font-bold text-cyan-300">Enrolled: {selectedCourse.progress}% Completed</span>
                     </div>
                   ) : (
                     <button
                       onClick={() => onEnroll(selectedCourse.id)}
-                      className="px-5 py-2 rounded-xl bg-teal-500 hover:bg-teal-400 text-[#102A43] font-bold text-xs shadow-md transition-all cursor-pointer"
+                      className="px-5 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs shadow-md transition-all cursor-pointer"
                     >
                       Enroll in Course
                     </button>
@@ -404,36 +404,36 @@ export const CourseLibrary: React.FC<CourseLibraryProps> = ({
               </div>
             </div>
 
-            {/* Navigation Tabs */}
-            <div className="border-b border-slate-200 bg-slate-50 px-6 flex items-center gap-6 text-xs font-bold shrink-0">
+            {/* Navigation Tabs - responsive scroll */}
+            <div className="border-b border-slate-200 bg-slate-50 px-4 sm:px-6 flex items-center gap-4 sm:gap-6 text-xs font-bold shrink-0 overflow-x-auto scrollbar-none whitespace-nowrap">
               <button
                 onClick={() => setActiveTab('syllabus')}
-                className={`py-3 border-b-2 transition-colors cursor-pointer ${
-                  activeTab === 'syllabus' ? 'border-[#2457C5] text-[#2457C5]' : 'border-transparent text-slate-600 hover:text-slate-900'
+                className={`py-3 border-b-2 transition-colors cursor-pointer shrink-0 ${
+                  activeTab === 'syllabus' ? 'border-cyan-600 text-cyan-700' : 'border-transparent text-slate-600 hover:text-slate-900'
                 }`}
               >
-                Curriculum Syllabus ({selectedCourse.syllabus?.length || 0} Modules)
+                Curriculum Syllabus ({selectedCourse.syllabus?.length || 0})
               </button>
               <button
                 onClick={() => setActiveTab('resources')}
-                className={`py-3 border-b-2 transition-colors cursor-pointer ${
-                  activeTab === 'resources' ? 'border-[#2457C5] text-[#2457C5]' : 'border-transparent text-slate-600 hover:text-slate-900'
+                className={`py-3 border-b-2 transition-colors cursor-pointer shrink-0 ${
+                  activeTab === 'resources' ? 'border-cyan-600 text-cyan-700' : 'border-transparent text-slate-600 hover:text-slate-900'
                 }`}
               >
                 Study Materials &amp; Datasets ({selectedCourse.resources?.length || 0})
               </button>
               <button
                 onClick={() => setActiveTab('discussions')}
-                className={`py-3 border-b-2 transition-colors cursor-pointer ${
-                  activeTab === 'discussions' ? 'border-[#2457C5] text-[#2457C5]' : 'border-transparent text-slate-600 hover:text-slate-900'
+                className={`py-3 border-b-2 transition-colors cursor-pointer shrink-0 ${
+                  activeTab === 'discussions' ? 'border-cyan-600 text-cyan-700' : 'border-transparent text-slate-600 hover:text-slate-900'
                 }`}
               >
                 Duty Forecaster Forum
               </button>
               <button
                 onClick={() => setActiveTab('instructor')}
-                className={`py-3 border-b-2 transition-colors cursor-pointer ${
-                  activeTab === 'instructor' ? 'border-[#2457C5] text-[#2457C5]' : 'border-transparent text-slate-600 hover:text-slate-900'
+                className={`py-3 border-b-2 transition-colors cursor-pointer shrink-0 ${
+                  activeTab === 'instructor' ? 'border-cyan-600 text-cyan-700' : 'border-transparent text-slate-600 hover:text-slate-900'
                 }`}
               >
                 Faculty Profile

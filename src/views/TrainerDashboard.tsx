@@ -126,29 +126,29 @@ export const TrainerDashboard: React.FC<TrainerDashboardProps> = ({
     <div className="space-y-8 animate-in fade-in duration-200">
       
       {/* 1. TRAINER PROFILE & WELCOME BANNER */}
-      <div className="rounded-2xl bg-gradient-to-r from-[#102A43] via-[#0E355C] to-[#12A594] text-white p-6 sm:p-8 shadow-md">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+      <div className="rounded-2xl bg-gradient-to-r from-[#091E3A] via-[#0C335C] to-[#0284C7] text-white p-5 sm:p-8 shadow-md">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
           <div className="flex items-start gap-4">
             <img
               src={trainer.avatar}
               alt={trainer.name}
-              className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl object-cover ring-4 ring-white/20 shadow-md"
+              className="w-14 h-14 sm:w-20 sm:h-20 rounded-2xl object-cover ring-4 ring-white/20 shadow-md shrink-0"
             />
             <div className="space-y-1">
-              <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-teal-400 text-[#102A43]">
+              <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-cyan-400 text-slate-950">
                 CTI Senior Faculty Command
               </span>
-              <h1 className="text-2xl sm:text-3xl font-black">{trainer.name}</h1>
-              <p className="text-xs sm:text-sm text-slate-200">{trainer.designation}</p>
+              <h1 className="text-xl sm:text-3xl font-black">{trainer.name}</h1>
+              <p className="text-xs sm:text-sm text-cyan-100">{trainer.designation}</p>
               <p className="text-xs text-slate-300">{trainer.department} • {trainer.location}</p>
             </div>
           </div>
 
           {/* Quick Trainer Actions */}
-          <div className="flex flex-wrap items-center gap-3">
+          <div className="flex flex-wrap items-center gap-2.5">
             <button
               onClick={() => setIsCreateModalOpen(true)}
-              className="px-4 py-2.5 rounded-xl bg-teal-400 hover:bg-teal-300 text-[#102A43] text-xs font-bold shadow-sm transition-all flex items-center gap-2 cursor-pointer"
+              className="px-4 py-2.5 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-slate-950 text-xs font-bold shadow-xs transition-all flex items-center gap-2 cursor-pointer"
             >
               <PlusCircle className="w-4 h-4" />
               <span>Create New Course</span>
@@ -165,41 +165,41 @@ export const TrainerDashboard: React.FC<TrainerDashboardProps> = ({
       </div>
 
       {/* 2. STATS ROW */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 text-left">
+        <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs hover:border-cyan-400 transition-all text-left">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-bold text-slate-500 uppercase">Assigned Curricula</span>
-            <BookOpen className="w-4 h-4 text-[#2457C5]" />
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Assigned Curricula</span>
+            <BookOpen className="w-4 h-4 text-cyan-600" />
           </div>
-          <div className="text-2xl font-black text-[#102A43]">{assignedCourses.length} Courses</div>
-          <span className="text-[11px] text-teal-700 font-medium mt-1 inline-block">Active under CTI Pune</span>
+          <div className="text-xl sm:text-2xl font-black text-slate-900">{assignedCourses.length} Courses</div>
+          <span className="text-[10px] text-teal-700 font-medium mt-1 inline-block">Active under CTI Pune</span>
         </div>
 
-        <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs">
+        <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs hover:border-cyan-400 transition-all text-left">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-bold text-slate-500 uppercase">Learner Participation</span>
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Learner Participation</span>
             <Users className="w-4 h-4 text-teal-600" />
           </div>
-          <div className="text-2xl font-black text-[#102A43]">{totalLearnersCount} Enrolled</div>
-          <span className="text-[11px] text-emerald-600 font-medium mt-1 inline-block">+14% month-over-month</span>
+          <div className="text-xl sm:text-2xl font-black text-slate-900">{totalLearnersCount} Enrolled</div>
+          <span className="text-[10px] text-emerald-600 font-medium mt-1 inline-block">+14% month-over-month</span>
         </div>
 
-        <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs">
+        <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs hover:border-cyan-400 transition-all text-left">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-bold text-slate-500 uppercase">Pending Submissions</span>
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Pending Submissions</span>
             <FileCheck className="w-4 h-4 text-amber-600" />
           </div>
-          <div className="text-2xl font-black text-[#102A43]">{pendingSubmissionsCount} Submissions</div>
-          <span className="text-[11px] text-amber-700 font-bold mt-1 inline-block">Requires Faculty Review</span>
+          <div className="text-xl sm:text-2xl font-black text-slate-900">{pendingSubmissionsCount} Submissions</div>
+          <span className="text-[10px] text-amber-700 font-bold mt-1 inline-block">Requires Faculty Review</span>
         </div>
 
-        <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs">
+        <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs hover:border-cyan-400 transition-all text-left">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-bold text-slate-500 uppercase">Faculty Rating</span>
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Faculty Rating</span>
             <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
           </div>
-          <div className="text-2xl font-black text-[#102A43]">4.9 / 5.0</div>
-          <span className="text-[11px] text-slate-500 font-medium mt-1 inline-block">Across 850+ reviews</span>
+          <div className="text-xl sm:text-2xl font-black text-slate-900">4.9 / 5.0</div>
+          <span className="text-[10px] text-slate-500 font-medium mt-1 inline-block">Across 850+ reviews</span>
         </div>
       </div>
 

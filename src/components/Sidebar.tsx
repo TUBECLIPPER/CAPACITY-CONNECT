@@ -93,28 +93,28 @@ export const Sidebar: React.FC<SidebarProps> = ({
     >
       <div className="flex flex-col">
         {/* Header Branding & Collapse Toggle */}
-        <div className="p-5 flex items-center justify-between border-b border-white/10">
+        <div className={`p-4 sm:p-5 flex border-b border-white/10 ${
+          isSidebarCollapsed ? 'flex-col items-center gap-3' : 'items-center justify-between'
+        }`}>
           {!isSidebarCollapsed ? (
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-3 text-left">
               <div className="w-10 h-10 bg-[#2457C5] rounded-xl flex items-center justify-center shadow-lg shrink-0">
                 <div className="w-5 h-5 border-2 border-white rounded-full border-t-transparent animate-spin-slow"></div>
               </div>
-              <div>
-                <h1 className="text-white font-bold text-base leading-tight tracking-tight">CAPACITY</h1>
-                <p className="text-[#12A594] text-[10px] font-bold tracking-[0.2em] uppercase">Connect</p>
+              <div className="text-left">
+                <h1 className="text-white font-bold text-base leading-tight tracking-tight text-left">CAPACITY</h1>
+                <p className="text-[#12A594] text-[10px] font-bold tracking-[0.2em] uppercase text-left">Connect</p>
               </div>
             </div>
           ) : (
-            <div className="w-10 h-10 bg-[#2457C5] rounded-xl flex items-center justify-center shadow-lg mx-auto">
+            <div className="w-10 h-10 bg-[#2457C5] rounded-xl flex items-center justify-center shadow-lg">
               <div className="w-5 h-5 border-2 border-white rounded-full border-t-transparent animate-spin-slow"></div>
             </div>
           )}
 
           <button
             onClick={onToggleCollapse}
-            className={`p-1.5 rounded-lg text-white/50 hover:text-white hover:bg-white/10 transition-colors ${
-              isSidebarCollapsed ? 'mx-auto mt-3' : ''
-            }`}
+            className="p-1.5 rounded-lg text-white/50 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
             title={isSidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
           >
             {isSidebarCollapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}

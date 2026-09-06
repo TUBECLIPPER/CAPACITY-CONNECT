@@ -1,0 +1,23 @@
+{
+  "short_name": "CapacityConnect",
+  "name": "IMD Capacity Connect - Mobile Learning Portal",
+  "description": "Digital Capacity Building and Learning Management Portal for the India Meteorological Department under Ministry of Earth Sciences.",
+  "icons": [
+    {
+      "src": "https://images.unsplash.com/photo-1590055531615-f16d36ffe8ec?w=192&auto=format&fit=crop&q=80",
+      "type": "image/jpeg",
+      "sizes": "192x192"
+    },
+    {
+      "src": "https://images.unsplash.com/photo-1590055531615-f16d36ffe8ec?w=512&auto=format&fit=crop&q=80",
+      "type": "image/jpeg",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#102A43",
+  "theme_color": "#102A43",
+  "display": "standalone",
+  "orientation": "portrait",
+  "categories": ["education", "government", "productivity"]
+}
